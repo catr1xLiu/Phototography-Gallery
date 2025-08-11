@@ -3,46 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery</title>
-    <link rel="stylesheet" href="./style.css">
-    <script src="./script.js"></script> 
+    <title>Image Viewer - {{ current_image }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body>
-    <main class="viewer-container">
-        <a id="prev-link" class="nav-arrow prev" href="{{ url_for('view_image', filename=prev_image) }}">&#10094;</a>
-        
-        <div class="image-wrapper">
-            <img src="{{ url_for('serve_photo', filename=current_image) }}" alt="{{ current_image }}">
-        </div>
+<body style="background-image: url('{{ url_for('serve_photo', filename=current_image) }}');">
 
-        <a id="next-link" class="nav-arrow next" href="{{ url_for('view_image', filename=next_image) }}">&#10095;</a>
+    <main class="viewer-container">
+        <a id="prev-link" class="nav-arrow prev" href="{{ url_for('view_image', filename=prev_image) }}"></a>
+        <a id="next-link" class="nav-arrow next" href="{{ url_for('view_image', filename=next_image) }}"></a>
+
+        <div class="photo-frame">
+            <div class="image-wrapper">
+                <img src="{{ url_for('serve_photo', filename=current_image) }}" alt="{{ current_image }}">
+            </div>
+
+            <aside class="metadata-panel">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ISO</th>
+                            <th>Aperture</th>
+                            <th>Shutter Speed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ metadata['ISO'] }}</td>
+                            <td>{{ metadata['Aperture'] }}</td>
+                            <td>{{ metadata['Shutter Speed'] }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </aside>
+        </div>
     </main>
-    
-    <aside class="metadata-panel">
-        <h3>Image Info</h3>
-        <table>
-            <tr>
-                <td>Model</td>
-                <td>{{ metadata['Camera Model'] }}</td>
-            </tr>
-            <tr>
-                <td>ISO</td>
-                <td>{{ metadata['ISO'] }}</td>
-            </tr>
-            <tr>
-                <td>Aperture</td>
-                <td>{{ metadata['Aperture'] }}</td>
-            </tr>
-            <tr>
-                <td>Shutter Speed</td>
-                <td>{{ metadata['Shutter Speed'] }}</td>
-            </tr>
-             <tr>
-                <td>Filename</td>
-                <td>{{ current_image }}</td>
-            </tr>
-        </table>
-    </aside>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
