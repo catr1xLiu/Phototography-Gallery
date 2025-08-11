@@ -83,16 +83,17 @@ body::before {
     
     /* The image cannot be taller than 70% of the viewport height. */
     /* This leaves room for the metadata and frame padding. */
-    max-height: 85vh; 
+    max-height: 80vh; 
     
     object-fit: contain;
-    border-radius: 12px;
+    border-radius: 10px;
 }
 
 /* --- Metadata Panel and Table Style --- */
 .metadata-panel {
     flex-shrink: 0; /* Prevent the metadata from shrinking */
     padding-top: 15px;
+    padding-bottom: 10px;
 }
 
 .metadata-panel table {
@@ -103,16 +104,16 @@ body::before {
 
 .metadata-panel th {
     color: #888;
-    font-size: 0.8rem;
+    font-size: 1.0rem;
     font-weight: 600;
-    padding-bottom: 5px;
+    padding-bottom: 0.2px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 .metadata-panel td {
     color: #222;
-    font-size: 1.1rem;
+    font-size: 1.8rem;
     font-weight: 500;
 }
 
