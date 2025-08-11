@@ -3,18 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
+    <title>Photo Gallery</title>
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js"></script> 
 </head>
 <body>
-    <h1>Photo Gallery</h1>
-    <div class="gallery-grid">
-        {% for image_filename in images %}
-        <div class="gallery-item">
-            <img src="/photos/{{ image_filename }}" alt="{{ image_filename }}">
+    <main class="viewer-container">
+        <a id="prev-link" class="nav-arrow prev" href="{{ url_for('view_image', filename=prev_image) }}">&#10094;</a>
+        
+        <div class="image-wrapper">
+            <img src="{{ url_for('serve_photo', filename=current_image) }}" alt="{{ current_image }}">
         </div>
-        {% endfor %}
-    </div>
+
+        <a id="next-link" class="nav-arrow next" href="{{ url_for('view_image', filename=next_image) }}">&#10095;</a>
+    </main>
+    
+    <aside class="metadata-panel">
+        <h3>Image Info</h3>
+        <table>
+            <tr>
+                <td>Model</td>
+                <td>{{ metadata['Camera Model'] }}</td>
+            </tr>
+            <tr>
+                <td>ISO</td>
+                <td>{{ metadata['ISO'] }}</td>
+            </tr>
+            <tr>
+                <td>Aperture</td>
+                <td>{{ metadata['Aperture'] }}</td>
+            </tr>
+            <tr>
+                <td>Shutter Speed</td>
+                <td>{{ metadata['Shutter Speed'] }}</td>
+            </tr>
+             <tr>
+                <td>Filename</td>
+                <td>{{ current_image }}</td>
+            </tr>
+        </table>
+    </aside>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
