@@ -28,16 +28,15 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>{{ metadata['ISO'] }}</td>
-                            <td>{{ metadata['Aperture'] }}</td>
-                            <td>{{ metadata['Shutter Speed'] }}</td>
+                            <td id="iso-value">{{ metadata['ISO'] }}</td>
+                            <td id="aperture-value">{{ metadata['Aperture'] }}</td>
+                            <td id="shutter-value">{{ metadata['Shutter Speed'] }}</td>
                         </tr>
                     </tbody>
                 </table>
             </aside>
         </div>
     </main>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script type="module" src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
