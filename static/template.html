@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./script.js"></script> 
+</head>
+<body>
+    <h1>Photo Gallery</h1>
+    <div class="gallery-grid">
+        {% for image_filename in images %}
+        <div class="gallery-item">
+            <img src="/photos/{{ image_filename }}" alt="{{ image_filename }}">
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
