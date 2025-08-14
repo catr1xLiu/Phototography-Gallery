@@ -88,16 +88,22 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // 1. Get elements and parse target values
+    const focalLengthEl = document.getElementById('focal-length-value');
     const isoEl = document.getElementById('iso-value');
     const apertureEl = document.getElementById('aperture-value');
     const shutterEl = document.getElementById('shutter-value');
 
+    const focalTarget = (focalLengthEl && focalLengthEl.textContent.endsWith('mm')) ? parseInt(focalLengthEl.textContent.replace('mm', ''), 10) : NaN;
     const isoTarget = (isoEl && isoEl.textContent !== 'N/A') ? parseInt(isoEl.textContent, 10) : NaN;
     const apertureTarget = (apertureEl && apertureEl.textContent.startsWith('f/')) ? parseFloat(apertureEl.textContent.replace('f/', '')) : NaN;
     const shutterTarget = (shutterEl && shutterEl.textContent.startsWith('1/')) ? parseInt(shutterEl.textContent.split('/')[1], 10) : NaN;
 
     // 2. Run the animations after a short delay to sync with the CSS animation
     setTimeout(() => {
+        if (!isNaN(focalTarget)) {
+            const formatter = (value) => `${Math.round(value)}mm`;
+            animateCountUp(focalLengthEl, focalTarget, 1000, formatter);
+        }
         if (!isNaN(isoTarget)) {
             const formatter = (value) => Math.round(value);
             animateCountUp(isoEl, isoTarget, formatter);

@@ -18,23 +18,38 @@
             </div>
 
             <aside class="metadata-panel">
+            <!-- Left side: ISO, Aperture, Shutter Speed -->
+            <div class="shot-info">
                 <table>
                     <thead>
                         <tr>
-                            <th>ISO</th>
+                            <th>Focal Length</th> <th>ISO</th>
                             <th>Aperture</th>
                             <th>Shutter Speed</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
+                            <td id="focal-length-value">{{ metadata['Focal Length'] }}</td>
                             <td id="iso-value">{{ metadata['ISO'] }}</td>
                             <td id="aperture-value">{{ metadata['Aperture'] }}</td>
                             <td id="shutter-value">{{ metadata['Shutter Speed'] }}</td>
                         </tr>
                     </tbody>
                 </table>
-            </aside>
+            </div>
+
+            <!-- Right side: Camera and Lens Info -->
+            <div class="camera-info">
+                <!-- The icon path is dynamically created -->
+                <img class="make-icon" src="{{ url_for('static', filename='icons/' + metadata['Make'] + '.svg') }}" alt="{{ metadata['Make'] }} Logo" onerror="this.style.display='none'">
+                <div class="divider"></div>
+                <div class="camera-text">
+                    <span class="camera-model">{{ metadata['Model'] }}</span>
+                    <span class="lens-model">{{ metadata['Lens Model'] }}</span>
+                </div>
+            </div>
+        </aside>
         </div>
     </main>
     <script type="module" src="{{ url_for('static', filename='script.js') }}"></script>

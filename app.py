@@ -33,20 +33,33 @@ def get_exif_data(filename):
                 tag = TAGS.get(tag_id, tag_id)
                 exif_data[tag] = value
 
+        # --- NEW DATA EXTRACTION ---
+        # Get camera manufacturer and model
+        make = exif_data.get('Make', '').strip().title()
+        model = exif_data.get('Model', 'N/A').strip()
+        
+        # Get lens model (this tag can vary, so we check a common one)
+        lens_model = exif_data.get('LensModel', 'N/A').strip()
+
         # Format the specific data we want
         aperture = exif_data.get('FNumber')
         shutter_speed = exif_data.get('ExposureTime')
 
         return {
-            'Camera Model': exif_data.get('Model', 'N/A'),
+            'Focal Length': f"{int(exif_data.get('FocalLength', 0))}mm", # ADD THIS LINE
             'ISO': exif_data.get('ISOSpeedRatings', 'N/A'),
             'Aperture': f"f/{aperture}" if aperture else 'N/A',
-            'Shutter Speed': f"1/{int(1/shutter_speed)}" if shutter_speed and shutter_speed < 1 else f"{shutter_speed}s" if shutter_speed else 'N/A'
+            'Shutter Speed': f"1/{int(1/shutter_speed)}" if shutter_speed and shutter_speed < 1 else f"{shutter_speed}s" if shutter_speed else 'N/A',
+            'Make': make,
+            'Model': model,
+            'Lens Model': lens_model
         }
     except Exception as e:
         print(f"Could not read EXIF data for {filename}: {e}")
-        return {'Camera Model': 'N/A', 'ISO': 'N/A', 'Aperture': 'N/A', 'Shutter Speed': 'N/A'}
-
+        return {
+            'ISO': 'N/A', 'Aperture': 'N/A', 'Shutter Speed': 'N/A',
+            'Make': '', 'Model': 'N/A', 'Lens Model': 'N/A'
+        }
 
 # --- Routes ---
 @app.route('/photos/<path:filename>')

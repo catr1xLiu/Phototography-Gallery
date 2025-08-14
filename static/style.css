@@ -21,11 +21,12 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    backdrop-filter: blur(25px) brightness(0.7);
-    -webkit-backdrop-filter: blur(25px) brightness(0.7); /* For Safari support */
+    backdrop-filter: blur(35px) brightness(0.8);
+    -webkit-backdrop-filter: blur(35px) brightness(0.8); /* For Safari support */
     z-index: -1; /* Place it behind the content */
-}
 
+    animation: fadeOut 0.6s ease-in forwards;
+}
 
 #page-overlay {
     position: fixed; /* Cover the entire viewport */
@@ -33,23 +34,23 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(180, 180, 180);
+    background-color: rgba(180, 180, 180, 0);
     z-index: 9999; /* Ensure it's on top of everything */
     pointer-events: none; /* Allow clicks to pass through */
     /* Apply the entry animation by default */
-    animation: fadeInFromWhite 0.8s ease-out forwards;
+    animation: fadeIn 0.8s ease-out forwards;
 }
 body.exiting #page-overlay {
-    animation: fadeOutToWhite 0.5s ease-in forwards;
+    animation: fadeOut 0.8s ease-in forwards;
 }
 /* Fades the white screen away (opacity 1 to 0) */
-@keyframes fadeInFromWhite {
+@keyframes fadeIn {
     from { opacity: 1; }
     to { opacity: 0; }
 }
 
 /* Brings the white screen back (opacity 0 to 1) */
-@keyframes fadeOutToWhite {
+@keyframes fadeOut {
     from { opacity: 0; }
     to { opacity: 1; }
 }
@@ -83,7 +84,7 @@ body.exiting #page-overlay {
     background-color: white;
     color: #333; /* Dark text for readability on white */
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
     max-width: 90vw;
     max-height: 90vh;
@@ -117,33 +118,82 @@ body.exiting #page-overlay {
     object-fit: contain;
     border-radius: 10px;
 }
-
-/* --- Metadata Panel and Table Style --- */
+/* --- Metadata Panel and Table Style (UPDATED) --- */
 .metadata-panel {
-    flex-shrink: 0; /* Prevent the metadata from shrinking */
+    flex-shrink: 0;
     padding-top: 15px;
     padding-bottom: 10px;
+    width: 100%;
+
+    /* --- NEW FLEXBOX LAYOUT --- */
+    display: flex;
+    justify-content: space-between; /* Pushes children to opposite ends */
+    align-items: center; /* Vertically aligns items */
 }
 
-.metadata-panel table {
+/* --- Left Side: Shot Info --- */
+.shot-info {
+    /* Set a max-width of roughly 1/3 of the container */
+    max-width: 55%; 
+    flex: 1 1 55%; /* Flex-grow, flex-shrink, flex-basis */
+}
+.shot-info table {
     width: 100%;
     border-collapse: collapse;
     text-align: center;
 }
-
-.metadata-panel th {
+.shot-info th {
     color: #888;
-    font-size: 1.0rem;
+    font-size: 0.8rem; /* Adjusted for smaller space */
     font-weight: 600;
-    padding-bottom: 0.2px;
+    padding-bottom: 2px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
-
-.metadata-panel td {
+.shot-info td {
     color: #222;
-    font-size: 1.8rem;
+    font-size: 1.4rem; /* Adjusted for smaller space */
     font-weight: 500;
+    /* Apply the fade-in animation */
+    animation: fadeInAfterDelay 1s ease-out forwards;
+}
+
+/* --- Right Side: Camera Info --- */
+.camera-info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligns content to the right */
+    flex-shrink: 0; /* Prevents it from shrinking */
+    padding-left: 20px;
+}
+
+.make-icon {
+    height: 3.5rem; /* Adjust size as needed */
+    margin-right: 15px;
+}
+
+.divider {
+    width: 1px;
+    height: 2.5rem;
+    background-color: #ddd;
+    margin-right: 15px;
+}
+
+.camera-text {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.camera-model {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.lens-model {
+    font-size: 0.8rem;
+    color: #777;
 }
 
 /* Add this new block to define the animation steps */
@@ -173,10 +223,10 @@ body.exiting #page-overlay {
     background-color: white;
     color: #333;
     padding: 20px;
-    border-radius: 20px;
+    border-radius: 10px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-    max-width: 90vw;
-    max-height: 90vh;
+    max-width: 94vw;
+    max-height: 94vh;
     display: flex;
     flex-direction: column;
 
