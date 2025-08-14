@@ -134,8 +134,8 @@ body.exiting #page-overlay {
 /* --- Left Side: Shot Info --- */
 .shot-info {
     /* Set a max-width of roughly 1/3 of the container */
-    max-width: 55%; 
-    flex: 1 1 55%; /* Flex-grow, flex-shrink, flex-basis */
+    max-width: 48%; 
+    flex: 1 1 48%; /* Flex-grow, flex-shrink, flex-basis */
 }
 .shot-info table {
     width: 100%;
@@ -144,7 +144,7 @@ body.exiting #page-overlay {
 }
 .shot-info th {
     color: #888;
-    font-size: 0.8rem; /* Adjusted for smaller space */
+    font-size: 0.7rem; /* Adjusted for smaller space */
     font-weight: 600;
     padding-bottom: 2px;
     text-transform: uppercase;
@@ -152,7 +152,7 @@ body.exiting #page-overlay {
 }
 .shot-info td {
     color: #222;
-    font-size: 1.4rem; /* Adjusted for smaller space */
+    font-size: 1.2rem; /* Adjusted for smaller space */
     font-weight: 500;
     /* Apply the fade-in animation */
     animation: fadeInAfterDelay 1s ease-out forwards;
@@ -232,11 +232,11 @@ body.exiting #page-overlay {
 
     /* Apply the animation here */
     /* It will run for 1.2s, use an ease-out curve, and stay at its final state */
-    animation: slideAndFadeIn 0.5s ease-out forwards;
+    animation: slideAndFadeIn 0.35s ease-out forwards;
 }
 
 body.exiting .photo-frame {
-    animation: slideAndFadeOut 0.5s ease-out forwards;
+    animation: slideAndFadeOut 0.35s ease-out forwards;
 }
 
 /* --- NEW ANIMATION FOR METADATA --- */

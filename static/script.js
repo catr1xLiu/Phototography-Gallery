@@ -1,6 +1,7 @@
-const LOADING_ANIMATION_DELAY = 200
-const LOADING_ANIMATION_DURATION_MS = 600
+const LOADING_ANIMATION_DELAY = 300
+const LOADING_ANIMATION_DURATION_MS = 800
 const EXIT_ANIMATION_DURATION_MS = 400
+const AUTO_PLAY_TIME_SECONDS = 3.0
 
 document.addEventListener('DOMContentLoaded', () => {
     /**
@@ -21,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, EXIT_ANIMATION_DURATION_MS);
     }
 
-    // --- Handle Clicks on Links ---
     /**
      * Listens for clicks anywhere in the document. If a link is clicked,
      * it prevents the default navigation and uses our animation function instead.
@@ -54,6 +54,8 @@ document.addEventListener('DOMContentLoaded', () => {
             navigateWithAnimation(nextLink.href);
         }
     });
+
+    setTimeout(() => navigateWithAnimation(nextLink), AUTO_PLAY_TIME_SECONDS*1000 - EXIT_ANIMATION_DURATION_MS);
 
 
     // --- Custom JavaScript Animations ---

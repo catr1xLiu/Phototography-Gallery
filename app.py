@@ -5,7 +5,7 @@ from PIL.ExifTags import TAGS
 
 # --- Configuration ---
 PHOTO_FOLDER = './photos'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'gif', 'png'}
 
 app = Flask(__name__, template_folder='static')
 
