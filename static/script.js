@@ -1,17 +1,57 @@
-const animationDelayMS = 200
-const animationDurationMS = 600
+const LOADING_ANIMATION_DELAY = 200
+const LOADING_ANIMATION_DURATION_MS = 600
+const EXIT_ANIMATION_DURATION_MS = 400
 
 document.addEventListener('DOMContentLoaded', () => {
+    /**
+     * Adds the exiting class to all elements, waits for the animation
+     * to complete, and then navigates to the specified URL.
+     * @param {string} url - The destination URL to navigate to.
+     */
+    function navigateWithAnimation(url) {
+        // 1. Add the "exiting" class to the body to trigger the animation.
+        //    Assuming your CSS applies the animation to children of .exiting.
+        document.body.classList.add('exiting');
+        document.getElementsByClassName('photo-frame')[0].classList.add('exiting')
 
-    // --- Keyboard Navigation (No changes here) ---
+        // 2. Wait for the animation to finish.
+        setTimeout(() => {
+            // 3. Navigate to the new page.
+            window.location.href = url;
+        }, EXIT_ANIMATION_DURATION_MS);
+    }
+
+    // --- Handle Clicks on Links ---
+    /**
+     * Listens for clicks anywhere in the document. If a link is clicked,
+     * it prevents the default navigation and uses our animation function instead.
+     */
+    document.addEventListener('click', (e) => {
+        // Find the closest ancestor 'a' tag. This handles cases where
+        // the user clicks on an element inside a link (e.g., an image or <strong> tag).
+        const link = e.target.closest('a');
+
+        // Proceed only if a link was actually clicked and it has a valid href.
+        if (link && link.href) {
+            // Stop the browser from navigating immediately.
+            e.preventDefault();
+
+            // Call our function to navigate with the animation.
+            navigateWithAnimation(link.href);
+        }
+    });
+
+    // --- Keyboard Navigation (Modified) ---
     const prevLink = document.getElementById('prev-link');
     const nextLink = document.getElementById('next-link');
 
     document.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft' && prevLink) {
-            window.location.href = prevLink.href;
+            // Instead of navigating directly, call our animation function.
+            navigateWithAnimation(prevLink.href);
         } else if (e.key === 'ArrowRight' && nextLink) {
-            window.location.href = nextLink.href;
+            // Same for the right arrow.
+            navigateWithAnimation(nextLink.href);
         }
     });
 
@@ -29,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const step = (currentTime) => {
             if (!startTime) startTime = currentTime;
-            const progress = Math.min((currentTime - startTime) / animationDurationMS, 1);
+            const progress = Math.min((currentTime - startTime) / LOADING_ANIMATION_DURATION_MS, 1);
             
             // Apply an easing function to make it look smooth
             const easedProgress = 1 - Math.pow(1 - progress, 3); // easeOutCubic
@@ -70,5 +110,5 @@ document.addEventListener('DOMContentLoaded', () => {
             const formatter = (value) => `1/${Math.round(value)}`;
             animateCountUp(shutterEl, shutterTarget, formatter);
         }
-    }, animationDelayMS);
+    }, LOADING_ANIMATION_DELAY);
 });

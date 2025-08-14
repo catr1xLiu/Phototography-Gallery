@@ -26,6 +26,35 @@ body::before {
     z-index: -1; /* Place it behind the content */
 }
 
+
+#page-overlay {
+    position: fixed; /* Cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(180, 180, 180);
+    z-index: 9999; /* Ensure it's on top of everything */
+    pointer-events: none; /* Allow clicks to pass through */
+    /* Apply the entry animation by default */
+    animation: fadeInFromWhite 0.8s ease-out forwards;
+}
+body.exiting #page-overlay {
+    animation: fadeOutToWhite 0.5s ease-in forwards;
+}
+/* Fades the white screen away (opacity 1 to 0) */
+@keyframes fadeInFromWhite {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Brings the white screen back (opacity 0 to 1) */
+@keyframes fadeOutToWhite {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+
 /* --- Main Viewer and Navigation --- */
 .viewer-container {
     position: relative;
@@ -128,6 +157,16 @@ body::before {
         transform: translateY(0);
     }
 }
+@keyframes slideAndFadeOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+}
 
 /* The White Photo Frame */
 .photo-frame {
@@ -143,7 +182,11 @@ body::before {
 
     /* Apply the animation here */
     /* It will run for 1.2s, use an ease-out curve, and stay at its final state */
-    animation: slideAndFadeIn 0.4s ease-out forwards;
+    animation: slideAndFadeIn 0.5s ease-out forwards;
+}
+
+body.exiting .photo-frame {
+    animation: slideAndFadeOut 0.5s ease-out forwards;
 }
 
 /* --- NEW ANIMATION FOR METADATA --- */
